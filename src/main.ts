@@ -1,12 +1,15 @@
-import { NestFastifyApplication, FastifyAdapter } from '@nestjs/platform-fastify';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import fmp from '@fastify/multipart';
-import helmet from 'helmet';
+import {
+  NestFastifyApplication,
+  FastifyAdapter,
+} from "@nestjs/platform-fastify";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { ValidationPipe } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import fmp from "@fastify/multipart";
+import helmet from "helmet";
 
-import { Environments } from './core/interfaces';
-import { AppModule } from './app.module';
+import { Environments } from "./core/interfaces";
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter({
@@ -24,28 +27,34 @@ async function bootstrap() {
     },
   });
 
-  const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyAdapter);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    fastifyAdapter
+  );
 
   app.use(
     helmet({
-      contentSecurityPolicy: process.env.NODE_ENV === Environments.PRODUCTION ? true : false,
+      contentSecurityPolicy:
+        process.env.NODE_ENV === Environments.PRODUCTION ? true : false,
     })
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Proyecto base')
-    .setDescription('Proyecto base API description')
-    .setVersion('1.0')
+    .setTitle("Proyecto base")
+    .setDescription("Proyecto base API description")
+    .setVersion("1.0")
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup("api", app, document);
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })
+  );
 
   app.enableCors();
 
-  await app.listen(3080, '0.0.0.0');
+  await app.listen(3005, "0.0.0.0");
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
