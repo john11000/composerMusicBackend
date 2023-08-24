@@ -22,7 +22,7 @@ DatabaseModule = __decorate([
                 inject: [configurations_1.default.KEY],
                 useFactory: async (configEnvs) => {
                     return {
-                        uri: `mongodb://${configEnvs.mongoHost}:${configEnvs.mongoPort}/${configEnvs.mongoInitdbDatabase}`,
+                        uri: configEnvs.mongo_uri,
                     };
                 },
             }),

@@ -1,4 +1,4 @@
-import { ConfigModuleOptions } from '@nestjs/config';
+import { ConfigModuleOptions } from "@nestjs/config";
 export interface IConfig {
     jwtSecret: string;
     jwtExpiresIn: string;
@@ -9,6 +9,7 @@ export interface IConfig {
     mongoInitdbDatabase: string;
     mongoHost: string;
     mongoPort: number;
+    mongo_uri: string;
 }
 declare const configurations: (() => IConfig) & import("@nestjs/config").ConfigFactoryKeyHost<IConfig>;
 export default configurations;

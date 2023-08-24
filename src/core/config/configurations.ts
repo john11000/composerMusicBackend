@@ -1,5 +1,5 @@
-import { ConfigModuleOptions, registerAs } from '@nestjs/config';
-import * as Joi from 'joi';
+import { ConfigModuleOptions, registerAs } from "@nestjs/config";
+import * as Joi from "joi";
 
 export interface IConfig {
   // JWT
@@ -14,23 +14,25 @@ export interface IConfig {
   mongoInitdbDatabase: string;
   mongoHost: string;
   mongoPort: number;
+  mongo_uri: string;
 }
 
 const configurations = registerAs(
-  'configEnvs',
+  "configEnvs",
   (): IConfig => ({
     // JWT
-    jwtSecret: process.env.JWT_SECRET || '',
-    jwtExpiresIn: process.env.TOKEN_EXPIRATION || '',
+    jwtSecret: process.env.JWT_SECRET || "",
+    jwtExpiresIn: process.env.TOKEN_EXPIRATION || "",
     // URLS
-    frontUrl: process.env.FRONT_URL || '',
-    backendUrl: process.env.BACKEND_URL || '',
+    frontUrl: process.env.FRONT_URL || "",
+    backendUrl: process.env.BACKEND_URL || "",
     // MONGO
-    mongoInitdbRootUsername: process.env.MONGO_INITDB_ROOT_USERNAME || '',
-    mongoInitdbRootPassword: process.env.MONGO_INITDB_ROOT_PASSWORD || '',
-    mongoInitdbDatabase: process.env.MONGO_INITDB_DATABASE || '',
-    mongoHost: process.env.MONGO_HOST || '',
-    mongoPort: parseInt(process.env.MONGO_PORT || '', 10),
+    mongoInitdbRootUsername: process.env.MONGO_INITDB_ROOT_USERNAME || "",
+    mongoInitdbRootPassword: process.env.MONGO_INITDB_ROOT_PASSWORD || "",
+    mongoInitdbDatabase: process.env.MONGO_INITDB_DATABASE || "",
+    mongoHost: process.env.MONGO_HOST || "",
+    mongoPort: parseInt(process.env.MONGO_PORT || "", 10),
+    mongo_uri: process.env.MONGO_URI || "",
   })
 );
 
